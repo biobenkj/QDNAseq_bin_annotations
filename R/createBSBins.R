@@ -3,6 +3,9 @@
 #' @param bsgenome Input BSgenome object
 #' @param bin.size The bin-size in kilobase-pairs
 #' @param chrs The chromosomes to operate on (default is all standard chromosomes)
+#' @param nome Whether the data are from NOMe-seq to compute GpC GC content
+#' @param parallel Whether to run in parallel
+#' @param cores How many cores to use for running in parallel
 #'
 #' @return A data frame with columns chromosome, start, end, non-N base frequency within the bin, CpG GC content, and GpC GC content.
 #' 
