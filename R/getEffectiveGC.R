@@ -153,11 +153,11 @@ getBSBinAnnotations <- function() {
 #### Testing #####
 bin.annots <- readRDS("~/git_repos/QDNAseq_bin_annotations/data/bs/QDNAseq_hg38_all_BS_bin_annots_precomputed.rds")
 ## Fix the rownames
-bin.annots <- lapply(bin.annots, function(x) {
-  rownames(x) <- paste0(x@data$chromosome, ":", x@data$start, "-", x@data$end)
-  return(x)
-})
-saveRDS(bin.annots, file = "~/git_repos/QDNAseq_bin_annotations/data/bs/QDNAseq_hg38_all_BS_bin_annots_precomputed.rds")
+# bin.annots <- lapply(bin.annots, function(x) {
+#   rownames(x) <- paste0(x@data$chromosome, ":", x@data$start, "-", x@data$end)
+#   return(x)
+# })
+# saveRDS(bin.annots, file = "~/git_repos/QDNAseq_bin_annotations/data/bs/QDNAseq_hg38_all_BS_bin_annots_precomputed.rds")
 bin.30kb.hg38 <- bin.annots[[paste0("hg38_", "30", "kbp")]]
 
 library(biscuiteer)
