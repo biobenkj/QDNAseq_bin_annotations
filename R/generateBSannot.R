@@ -17,16 +17,22 @@ binAnnots.hg38 <- mclapply(binSizes, function(x) {
 
 names(binAnnots.hg38) <- paste0("hg38_", binSizes, "kbp")
 
+## make annotated data frames
+binAnnots.hg38 <- lapply(binAnnots.hg38, function(x) as(x, "AnnotatedDataFrame"))
+
 saveRDS(binAnnots.hg38, file = "QDNAseq_hg38_all_BS_bin_annots_precomputed.rds")
 
 #generate bin annotations for hg19
 library(BSgenome.Hsapiens.UCSC.hg19)
 binAnnots.hg19 <- mclapply(binSizes, function(x) {
-  bins <- createBSBins(BSgenome.Hsapiens.UCSC.hg19, bin.size = x)
+  bins <- createBSBins(BSgenome.Hsapiens.UCSC.hg19, bin.size = x, blacklist = "ENCFF001TDO.bed")
   return(bins)
 }, mc.cores = ifelse(length(binSizes) <= 16, length(binSizes), 16))
 
 names(binAnnots.hg19) <- paste0("hg19_", binSizes, "kbp")
+
+## make annotated data frames
+binAnnots.hg19 <- lapply(binAnnots.hg19, function(x) as(x, "AnnotatedDataFrame"))
 
 saveRDS(binAnnots.hg19,
         file = "QDNAseq_hg19_all_BS_bin_annots_precomputed.rds")

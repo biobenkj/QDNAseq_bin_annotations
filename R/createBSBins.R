@@ -83,6 +83,7 @@ createBSBins <- function(bsgenome, bin.size, chrs = NULL, blacklist = NULL,
   message("Computing bin-level GC content.")
   wgsgc_freq_bin <- unlist(bplapply(genome_bins_with_sequence, function(bp) {
     gc_freq <- (sum(alphabetFrequency(bp)[2:3]) / sum(alphabetFrequency(bp)[1:4])) #index 2 and 3 are C and G, respectively
+    if (is.nan(gc_freq)) gc_freq <- 0
     return(gc_freq)
   }, BPPARAM = bpparam))
   
@@ -91,6 +92,7 @@ createBSBins <- function(bsgenome, bin.size, chrs = NULL, blacklist = NULL,
   gc_freq_bin <- unlist(bplapply(genome_bins_with_sequence, function(bp) {
     bs_convert <- chartr("C", "T", bp)
     gc_freq <- (sum(alphabetFrequency(bs_convert)[2:3]) / sum(alphabetFrequency(bs_convert)[1:4]))
+    if (is.nan(gc_freq)) gc_freq <- 0
     return(gc_freq)
   }, BPPARAM = bpparam))
   
@@ -150,6 +152,7 @@ createBSBins <- function(bsgenome, bin.size, chrs = NULL, blacklist = NULL,
       bp_convert <- chartr("C", "T", bp)
       #compute GC content
       delta_freq <- ((alphabetFrequency(bp_convert)[3] + delta) / sum(alphabetFrequency(bp_convert)[1:4]))
+      if (is.nan(delta_freq)) delta_freq <- 0
       return(delta_freq)
     }, BPPARAM = bpparam))
   }
