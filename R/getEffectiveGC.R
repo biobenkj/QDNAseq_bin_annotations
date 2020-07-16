@@ -1,15 +1,20 @@
-#' Title
+#' Compute effective GC content for bisulfite sequencing experiments
+#' 
+#' This is mainly used as a way to compute moderated GC content for
+#' CNV sketching with QDNAseq from bisulfite sequencing data
 #'
-#' @param obj 
-#' @param bins 
-#' @param bin.size 
-#' @param nome 
-#' @param nome.obj 
+#' @param obj Input CpG BSseq object
+#' @param bins A GRanges object of bin annotations generated from createBSBins
+#' @param bin.size The size of the bin annotations (DEFAULT: 30kb)
+#' @param nome Whether we are running in NOMe-seq mode
+#' @param nome.obj The GpC methylation BSseq object
 #'
-#' @return
+#' @return A matrix of moderated effective GC-content for each sample
 #' @export
 #'
 #' @examples
+#' 
+
 getEffectiveGC <- function(obj, bins, bin.size = 3e4,
                            nome = FALSE, nome.obj = NULL) {
   ## Simple wrapper function to compute the _effective_ gc content
@@ -69,12 +74,14 @@ getEffectiveGC <- function(obj, bins, bin.size = 3e4,
   return(eff_gc)
 }
 
+## Stub for now until pre-computed annotations are uploaded
 getBSBinAnnotations <- function() {
   ## This function is a wrapper for biscuiteerDataGet()
   ## TODO: upload the annotations to AnnotationHub()
   return(NULL)
 }
 
+## Helper function to summarize methylation levels within a bin
 .summarizeMethylation <- function(obj, bins, genome) {
   if (!is(obj, "BSseq")) stop("Input needs to be a BSseq object.")
   if (!is(bins, "GRanges") & is(bins, "AnnotatedDataFrame")) {
@@ -113,6 +120,8 @@ getBSBinAnnotations <- function() {
   return(meth_summarized)
 }
 
+## Helper function to compute the effective GC content from either
+## CpG or GpC binned methylation for CNV sketching
 .computeEffectiveGC <- function(meth_summarized,
                                 bins, nome = FALSE,
                                 meth_summarized.nome = NULL) {
