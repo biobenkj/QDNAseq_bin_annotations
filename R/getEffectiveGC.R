@@ -159,6 +159,8 @@ getBSBinAnnotations <- function() {
   return(eff_gc)
 }
 
+# TODO: make helper functions to swap back and forth between GRanges and AnnotatedDataFrame
+
 #### Testing #####
 bin.annots <- readRDS("~/git_repos/QDNAseq_bin_annotations/data/bs/QDNAseq_hg38_all_BS_bin_annots_precomputed.rds")
 ## Fix the rownames
