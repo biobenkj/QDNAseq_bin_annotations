@@ -156,6 +156,7 @@ getBSBinAnnotations <- function() {
   }
   eff_gc <- mcols(bins.sub)$bsgc +
     (as.matrix(mcols(meth_summarized.gr)) * mcols(bins.sub)$cpg_gc)
+  rownames(eff_gc) <- as.character(granges(bins.sub))
   return(eff_gc)
 }
 
